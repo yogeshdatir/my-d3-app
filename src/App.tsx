@@ -1,4 +1,4 @@
-import { select } from 'd3-selection';
+import { select, selectAll } from 'd3-selection';
 import React, { useEffect, useRef } from 'react';
 import './App.css';
 
@@ -7,8 +7,13 @@ const App: React.FC = () => {
 
   useEffect(() => {
     // console.log(select(svgRef.current))
-    select(svgRef.current)
-      .append('rect')
+    // select(svgRef.current)
+    //   .append('rect')
+    //   .attr('width', 100)
+    //   .attr('height', 100)
+    //   .attr('fill', 'blue')
+
+    selectAll('rect')
       .attr('width', 100)
       .attr('height', 100)
       .attr('fill', 'blue')
@@ -16,7 +21,11 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <svg ref={svgRef} />
+      <svg ref={svgRef}>
+        <rect />
+        <rect />
+        <rect />
+      </svg>
     </div>
   )
 }
