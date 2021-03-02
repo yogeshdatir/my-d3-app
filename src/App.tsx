@@ -17,6 +17,8 @@ const App: React.FC = () => {
       .attr('width', 100)
       .attr('height', 100)
       .attr('fill', 'blue')
+      // here first argument is element, we don't need it here so we can skip it by adding _.
+      .attr('x', (_ , index) => index*100 )
   })
 
   return (
