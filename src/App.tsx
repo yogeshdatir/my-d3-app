@@ -2,7 +2,23 @@ import { select, Selection } from 'd3-selection';
 import React, { useEffect, useRef, useState } from 'react';
 import './App.css';
 
-const data = [{width: 200, height: 100, color:'red'}]
+const data = [
+  {
+    height: 90,
+    width: 100,
+    color: 'purple'    
+  },
+  {
+    height: 70,
+    width: 100,
+    color: 'red'
+  }, 
+  {
+    height: 50,
+    width: 100,
+    color: 'yellow'
+  }
+]
 
 const App: React.FC = () => {
   const ref = useRef(null)
@@ -12,17 +28,23 @@ const App: React.FC = () => {
     if (!selection) {
       setSelection(select(ref.current))
     } else {
-      selection.data(data)
-        .append('rect')
-        .attr('width', d => d.width)
+      selection
+        .selectAll('rect')
+        .data(data)
+        .attr('width',d => d.width)
         .attr('height', d => d.height)
         .attr('fill', d => d.color)
+        .attr('x', (_, index) => index * 160)
     }
   }, [selection])
 
   return (
     <div>
-      <svg ref={ref}>
+      {/* default width of the svg is 300 */}
+      <svg ref={ref} width='600'>
+        <rect />
+        <rect />
+        <rect />
       </svg>
     </div>
   )
