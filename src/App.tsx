@@ -1,3 +1,4 @@
+import { scaleLinear } from 'd3-scale';
 import { select, Selection } from 'd3-selection';
 import React, { useEffect, useRef, useState } from 'react';
 import './App.css';
@@ -33,16 +34,34 @@ const App: React.FC = () => {
   const ref = useRef<SVGSVGElement | null>(null)
   const [selection, setSelection] = useState<null | Selection<SVGSVGElement | null, unknown, null, undefined>>(null)
 
+  const y = scaleLinear()
+              .domain([0,10000])
+              .range([0,500])
+
   useEffect(() => {
     if (!selection) {
       setSelection(select(ref.current))
+    } else {
+      // console.log("y(0)", y(0))
+      // console.log("y(2500)", y(2500))
+      // console.log("y(5000)", y(5000))
+
+      selection
+        .selectAll('rect')
+        .data(data)
+        .enter()
+        .append('rect')
+        .attr('width', 100)
+        .attr('x', (_, index) => index*110)
+        .attr('fill', 'orange')
+        .attr('height', d => y(d.number))
     }
-  }, [selection])
+  }, [selection, y])
 
   return (
     <div>
       {/* default width of the svg is 300 */}
-      <svg width={800} height={500}>
+      <svg ref={ref} width={800} height={500}>
       </svg>
     </div>
   )
