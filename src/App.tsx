@@ -1,5 +1,4 @@
-import { select, Selection } from 'd3-selection';
-import React, { useEffect, useRef, useState } from 'react';
+import React  from 'react';
 import './App.css';
 
 const App: React.FC = () => {
@@ -7,7 +6,7 @@ const App: React.FC = () => {
   return (
     <div>
       {/* default width of the svg is 300 */}
-      <svg width='1000'>
+      <svg width={800} height={500}>
       </svg>
     </div>
   )
