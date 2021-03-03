@@ -1,32 +1,25 @@
-import { select, selectAll } from 'd3-selection';
-import React, { useEffect, useRef } from 'react';
+import { select, Selection } from 'd3-selection';
+import React, { useEffect, useRef, useState } from 'react';
 import './App.css';
 
+const data = [{width: 200, height: 100, color:'red'}]
+
 const App: React.FC = () => {
-  const svgRef = useRef<SVGSVGElement | null >(null)
+  const ref = useRef(null)
+  const [selection, setSelection] = useState<null | Selection<null, unknown, null, undefined>>(null)
 
   useEffect(() => {
-    // console.log(select(svgRef.current))
-    // select(svgRef.current)
-    //   .append('rect')
-    //   .attr('width', 100)
-    //   .attr('height', 100)
-    //   .attr('fill', 'blue')
-
-    selectAll('rect')
-      .attr('width', 100)
-      .attr('height', 100)
-      .attr('fill', 'blue')
-      // here first argument is element, we don't need it here so we can skip it by adding _.
-      .attr('x', (_ , index) => index*100 )
-  })
+    if (!selection) {
+      setSelection(select(ref.current))
+    } else {
+      selection.data(data)
+    }
+    console.log(selection)
+  }, [selection])
 
   return (
     <div>
-      <svg ref={svgRef}>
-        <rect />
-        <rect />
-        <rect />
+      <svg ref={ref}>
       </svg>
     </div>
   )
