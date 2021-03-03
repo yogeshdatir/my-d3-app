@@ -13,8 +13,11 @@ const App: React.FC = () => {
       setSelection(select(ref.current))
     } else {
       selection.data(data)
+        .append('rect')
+        .attr('width', d => d.width)
+        .attr('height', d => d.height)
+        .attr('fill', d => d.color)
     }
-    console.log(selection)
   }, [selection])
 
   return (
